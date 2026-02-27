@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical Unlimited — Empresa de mantenimiento de ascensores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --primary: #38bdf8;
+      --primary-dark: #0ea5e9;
+      --primary-light: rgba(56,189,248,0.12);
+      --accent: #22d3ee;
+      --accent-warm: #fb923c;
+      --accent-green: #2dd4bf;
+      --accent-violet: #a78bfa;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --card-border: rgba(255,255,255,0.06);
+      --radius: 20px;
+      --radius-sm: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56,189,248,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(45,212,191,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 30% at 0% 80%, rgba(34,211,238,0.04) 0%, transparent 50%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wrapper { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+    /* Banner imagen Vertical - cubre toda la parte superior */
+    .hero-banner {
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      animation: fadeIn 0.8s ease-out;
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 20%, rgba(10,10,10,0.5) 60%, var(--bg) 100%);
+      pointer-events: none;
+    }
+    .hero-banner img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Hero - negro igual que el fondo */
+    .hero {
+      text-align: center;
+      padding: 3rem 2rem 4rem;
+      margin: 0;
+      background: var(--bg);
+      position: relative;
+      z-index: 1;
+    }
+    .hero .logo-wrap {
+      display: inline-block;
+      padding: 1.25rem;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px var(--card-border);
+      margin-bottom: 1.5rem;
+      animation: fadeInDown 0.9s ease-out;
+    }
+    .hero .logo {
+      display: block;
+      width: 160px;
+      height: auto;
+      animation: fadeInDown 0.9s ease-out;
+    }
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--accent-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      position: relative;
+      animation: fadeInUp 0.9s ease-out 0.2s both;
+    }
+    .hero .tagline {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin: 0 0 1.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 500;
+      position: relative;
+      animation: fadeInUp 0.9s ease-out 0.35s both;
+    }
+    .hero .slogan {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 0 0 0.5rem;
+      position: relative;
+      animation: fadeInUp 0.9s ease-out 0.15s both;
+    }
+    .hero .badge {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent) 100%);
+      color: #0a0a0a;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      position: relative;
+      animation: fadeInUp 0.9s ease-out 0.5s both;
+      box-shadow: 0 4px 20px rgba(56,189,248,0.35);
+    }
+    .hero .services-line {
+      display: block;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      letter-spacing: 0.02em;
+      position: relative;
+      animation: fadeInUp 0.9s ease-out 0.6s both;
+    }
+    .hero .sencamer-badge {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      animation: fadeInUp 0.9s ease-out 0.7s both;
+    }
+
+    /* Stats strip */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: -2rem auto 2rem;
+      max-width: 820px;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 640px) { .stats { grid-template-columns: 1fr; margin-top: 1rem; } }
+    .stat {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stat:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .stat-num { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin: 0 0 0.25rem; }
+    .stat-label { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+    .stat:nth-child(1) .stat-num { color: var(--primary); }
+    .stat:nth-child(2) .stat-num { color: var(--accent-green); }
+    .stat:nth-child(3) .stat-num { color: var(--accent-warm); }
+    .stat:nth-child(1) { border-top: 4px solid var(--primary); }
+    .stat:nth-child(2) { border-top: 4px solid var(--accent-green); }
+    .stat:nth-child(3) { border-top: 4px solid var(--accent-warm); }
+
+    /* Sello SENCAMER - tira de confianza */
+    .sencamer-strip {
+      max-width: 960px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .sencamer-strip__inner {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 1.75rem;
+      background: linear-gradient(90deg, rgba(99,102,241,0.12) 0%, rgba(99,102,241,0.04) 100%);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--accent-violet);
+    }
+    .sencamer-strip__icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99,102,241,0.2);
+      border-radius: 12px;
+      font-size: 1.5rem;
+      color: var(--accent-violet);
+    }
+    .sencamer-strip__text strong { display: block; font-size: 1.1rem; color: var(--text); margin-bottom: 0.2rem; }
+    .sencamer-strip__text span { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Sections */
+    .section {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .section h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 1.25rem;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section h2::before {
+      content: '';
+      width: 5px;
+      height: 1.3em;
+      background: linear-gradient(180deg, var(--primary), var(--accent), var(--accent-green));
+      border-radius: 3px;
+    }
+    .section p { margin: 0 0 1rem; color: var(--text-muted); font-size: 1.05rem; }
+    .section p strong { color: var(--text); }
+    .section p:last-of-type { margin-bottom: 0; }
+
+    /* Grid & cards */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 0.75rem; }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      padding: 1.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card:nth-child(1) {
+      background: linear-gradient(145deg, rgba(56,189,248,0.08) 0%, var(--card-bg) 100%);
+      border-left: 4px solid var(--primary);
+    }
+    .card:nth-child(2) {
+      background: linear-gradient(145deg, rgba(45,212,191,0.06) 0%, var(--card-bg) 100%);
+      border-left: 4px solid var(--accent-green);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-color: rgba(56,189,248,0.2);
+    }
+    .card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 0.6rem;
+    }
+    .card:nth-child(1) h3 { color: var(--primary); }
+    .card:nth-child(2) h3 { color: var(--accent-green); }
+    .card p { margin: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Lista de valores/servicios */
+    .values {
+      list-style: none;
+      padding: 0;
+      margin: 1.25rem 0 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .values li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 1rem;
+      color: var(--text);
+      padding: 0.5rem 0;
+    }
+    .values li:nth-child(odd)::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      min-width: 1.5rem;
+      background: rgba(56,189,248,0.2);
+      color: var(--primary);
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .values li:nth-child(even)::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      min-width: 1.5rem;
+      background: rgba(45,212,191,0.15);
+      color: var(--accent-green);
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(160deg, rgba(56,189,248,0.08) 0%, rgba(45,212,191,0.05) 50%, var(--card-bg) 100%);
+      border: 1px solid var(--card-border);
+    }
+    .cta h2 { background: linear-gradient(135deg, var(--primary), var(--accent-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .cta h2 { justify-content: center; }
+    .cta > p { margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.05rem; }
+    .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      background: var(--primary);
+      color: #0a0a0a;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cta a:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(56,189,248,0.4); }
+    .cta a.soon { background: #475569; color: var(--text-muted); cursor: not-allowed; opacity: 0.9; }
+    .cta a.soon:hover { transform: none; box-shadow: none; }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 500px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-item {
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+      transition: transform 0.2s ease;
+    }
+    .contact-item:nth-child(1) {
+      background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, var(--card-bg) 100%);
+      border-left: 4px solid var(--primary);
+    }
+    .contact-item:nth-child(2) {
+      background: linear-gradient(135deg, rgba(45,212,191,0.08) 0%, var(--card-bg) 100%);
+      border-left: 4px solid var(--accent-green);
+    }
+    .contact-item:hover { transform: translateX(4px); }
+    .contact-item strong { display: block; margin-bottom: 0.35rem; color: var(--primary); font-size: 0.9rem; font-weight: 600; }
+    .contact-item span { color: var(--text-muted); }
+    .contact-item a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+    .contact-item a:hover { color: var(--primary); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animaciones al hacer scroll */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+    }
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-reveal--left {
+      transform: translateY(28px) translateX(-40px);
+    }
+    .scroll-reveal--left.is-visible {
+      transform: translateY(0) translateX(0);
+    }
+    .scroll-reveal--right {
+      transform: translateY(28px) translateX(40px);
+    }
+    .scroll-reveal--right.is-visible {
+      transform: translateY(0) translateX(0);
+    }
+    .scroll-reveal--scale {
+      transform: translateY(24px) scale(0.96);
+    }
+    .scroll-reveal--scale.is-visible {
+      transform: translateY(0) scale(1);
+    }
+    .scroll-reveal--delay-1 { transition-delay: 0.1s; }
+    .scroll-reveal--delay-2 { transition-delay: 0.2s; }
+    .scroll-reveal--delay-3 { transition-delay: 0.3s; }
+    .scroll-reveal--delay-4 { transition-delay: 0.4s; }
+    .scroll-reveal--delay-5 { transition-delay: 0.5s; }
+
+    /* Lista de valores: entrada escalonada cuando la sección es visible */
+    .section .values li {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .section.is-visible .values li {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section .values li:nth-child(1) { transition-delay: 0.05s; }
+    .section .values li:nth-child(2) { transition-delay: 0.1s; }
+    .section .values li:nth-child(3) { transition-delay: 0.15s; }
+    .section .values li:nth-child(4) { transition-delay: 0.2s; }
+    .section .values li:nth-child(5) { transition-delay: 0.25s; }
+    .section .values li:nth-child(6) { transition-delay: 0.3s; }
+    .section .values li:nth-child(7) { transition-delay: 0.35s; }
+    .section .values li:nth-child(8) { transition-delay: 0.4s; }
+    .section .values li:nth-child(9) { transition-delay: 0.45s; }
+
+    /* Mensaje destacado / misión - entra de izquierda a derecha al hacer scroll */
+    .highlight-message {
+      margin: 0 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .highlight-message__inner {
+      display: grid;
+      grid-template-columns: minmax(200px, 320px) 1fr;
+      gap: 0;
+      align-items: stretch;
+      background: linear-gradient(135deg, rgba(56,189,248,0.08) 0%, rgba(45,212,191,0.05) 100%);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    @media (max-width: 640px) {
+      .highlight-message__inner { grid-template-columns: 1fr; }
+    }
+    .highlight-message__image {
+      min-height: 400px;
+      background: var(--card-bg);
+    }
+    .highlight-message__image img {
+      display: block;
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .highlight-message blockquote {
+      margin: 0;
+      padding: 2.25rem 2.5rem 2.25rem 2.75rem;
+      font-size: 1.35rem;
+      line-height: 1.8;
+      font-weight: 500;
+      color: var(--text);
+      font-style: normal;
+      text-shadow: 0 0 40px rgba(56,189,248,0.08);
+    }
+    .highlight-message blockquote strong,
+    .highlight-message blockquote em {
+      color: var(--primary);
+      font-style: normal;
+      font-weight: 700;
+      text-shadow: 0 0 24px rgba(56,189,248,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-banner">
+    <img src="imagenVertical.jpeg" alt="Vertical Unlimited — Mantenimiento de ascensores" />
+  </div>
+
+  <section class="hero">
+    <div class="wrapper">
+      <!-- <div class="logo-wrap">
+        <img src="logo.png" alt="Vertical Unlimited" class="logo" width="160" height="160" />
+      </div> -->
+      <p class="slogan">La mejor opción para un ascensor perfecto</p>
+      <h1>Vertical Unlimited</h1>
+      <p class="tagline">Empresa especializada en mantenimiento y gestión de ascensores. Servicio profesional para edificios y comunidades.</p>
+      <span class="services-line">Mantenimiento, modernización, instalación</span>
+      <span class="sencamer-badge">Inscritos en SENCAMER</span>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat scroll-reveal scroll-reveal--scale scroll-reveal--delay-1">
+      <p class="stat-num">20 años</p>
+      <p class="stat-label">Experiencia en el sector</p>
+    </div>
+    <div class="stat scroll-reveal scroll-reveal--scale scroll-reveal--delay-2">
+      <p class="stat-num">+30</p>
+      <p class="stat-label">Clientes que confían en nosotros</p>
+    </div>
+    <div class="stat scroll-reveal scroll-reveal--scale scroll-reveal--delay-3">
+      <p class="stat-num">Servicio</p>
+      <p class="stat-label">Mantenimiento, modernización, instalación</p>
+    </div>
+  </div>
+
+  <div class="sencamer-strip scroll-reveal scroll-reveal--left">
+    <div class="sencamer-strip__inner">
+      <div class="sencamer-strip__icon" aria-hidden="true">✓</div>
+      <div class="sencamer-strip__text">
+        <strong>Inscritos en SENCAMER</strong>
+        <span>(Servicio Autónomo Nacional de Normalización, Calidad, Metrología y Reglamentos Técnicos).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <section class="section scroll-reveal">
+      <h2>Quiénes somos</h2>
+      <p><strong>Vertical Unlimited</strong> es una empresa dedicada al mantenimiento y la gestión integral de ascensores. Nuestro objetivo es garantizar el correcto funcionamiento de los equipos en edificios y comunidades, con profesionalidad, rapidez y trato cercano.</p>
+      <p>Estamos inscritos en <strong>SENCAMER</strong> (Servicio Autónomo Nacional de Normalización, Calidad, Metrología y Reglamentos Técnicos) porque nos comprometemos a cumplir las normas técnicas vigentes y a brindarte la atención y la tranquilidad que tu edificio merece.</p>
+      <p>Trabajamos con equipos técnicos capacitados y procesos claros: desde la atención de fallas y el mantenimiento preventivo hasta la facturación y el seguimiento de cada instalación. Conocemos las necesidades de administraciones y de vecinos, y nos comprometemos a ofrecer un servicio transparente y confiable.</p>
+    </section>
+
+    <div class="highlight-message scroll-reveal scroll-reveal--left">
+      <div class="highlight-message__inner">
+        <div class="highlight-message__image">
+          <img src="tecnico.jpeg" alt="Técnico Vertical Unlimited — Mantenimiento de ascensores" />
+        </div>
+        <blockquote>
+          En Vertical, entendemos que un ascensor es mucho más que cables y metal: es el <strong>corazón del movimiento</strong> en tu edificio. Por eso, no nos limitamos a "reparar" — nos dedicamos a <strong>proteger</strong>.
+        </blockquote>
+      </div>
+    </div>
+
+    <section class="section scroll-reveal">
+      <h2>Nuestros servicios</h2>
+      <p>Ofrecemos un servicio completo orientado a la operación y la seguridad de los ascensores:</p>
+      <ul class="values">
+        <li>Mantenimiento preventivo y correctivo</li>
+        <li>Modernización de equipos</li>
+        <li>Instalación de ascensores</li>
+        <li>Atención de fallas y emergencias</li>
+        <li>Inspecciones técnicas</li>
+        <li>Presupuestos y facturación clara</li>
+        <li>Calendario de visitas programadas</li>
+        <li>Seguimiento y reportes por edificio</li>
+        <li>Comunicación directa con administración y técnicos</li>
+      </ul>
+    </section>
+
+    <section class="section scroll-reveal">
+      <h2>A quién nos dirigimos</h2>
+      <div class="grid">
+        <div class="card scroll-reveal scroll-reveal--left scroll-reveal--delay-1">
+          <h3>Edificios y administraciones</h3>
+          <p>Gestión de ascensores de su edificio: reportes, historial, facturas, presupuestos y avisos de visitas. Un único canal de comunicación con Vertical Unlimited.</p>
+        </div>
+        <div class="card scroll-reveal scroll-reveal--right scroll-reveal--delay-2">
+          <h3>Equipos técnicos y gerencia</h3>
+          <p>Organización del trabajo en campo, calendario de mantenimiento, mapas, manuales y toda la información operativa y administrativa necesaria para el día a día.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal">
+      <h2>Nuestra herramienta digital</h2>
+      <p>Para acercar nuestro servicio a administraciones y técnicos, contamos con una <strong>aplicación móvil</strong> que facilita reportes, consulta de historial, facturación, calendario de visitas y notificaciones. Está disponible para Android e iOS y es el canal ideal para estar en contacto con Vertical Unlimited y con el estado de su edificio.</p>
+    </section>
+
+    <section class="section scroll-reveal" id="contacto">
+      <h2>Contacto</h2>
+      <p>¿Necesitas información, una cotización o soporte? Estamos para ayudarte.</p>
+      <div class="contact-grid">
+        <div class="contact-item scroll-reveal scroll-reveal--left scroll-reveal--delay-1">
+          <strong>Correo</strong>
+          <a href="mailto:verticalinfo@gmail.com">verticalinfo@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function() {
+      var revealEls = document.querySelectorAll('.scroll-reveal');
+      var rootMargin = '0px 0px -60px 0px';
+
+      function onIntersect(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }
+
+      var observer = new IntersectionObserver(onIntersect, {
+        root: null,
+        rootMargin: rootMargin,
+        threshold: 0.1
+      });
+
+      revealEls.forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>
